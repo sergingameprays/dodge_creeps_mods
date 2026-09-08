@@ -5,7 +5,10 @@ signal hit
 @export var speed = 400
 var screen_size
 
+@onready var character: Character ##added
+
 func _ready() -> void:
+	character = $Character ##added
 	screen_size = get_viewport_rect().size
 	hide()
 
@@ -38,11 +41,18 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.flip_v = velocity.y > 0
 
 func _on_body_entered(body: Node2D) -> void:
-	hide()
-	hit.emit()
-	$CollisionShape2D.set_deferred("disabled", true)
+	character = $Character #added
+	character.take_damage(10) ## added
+
 	
 func start(pos):
+	character.reset() ## added
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+##added, the body was originally in _on_body_entered(body: Node2D)
+func _on_character_died() -> void:
+	hide()
+	hit.emit()
+	$CollisionShape2D.set_deferred("disabled", true)

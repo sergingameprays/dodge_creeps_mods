@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dv68jr8asddft"]
+
+[ext_resource type="Script" uid="uid://ds75clj2p8vnu" path="res://lib/character.gd" id="1_1fa4y"]
+[ext_resource type="PackedScene" uid="uid://b2tcanye6icc" path="res://lib/health_componet.tscn" id="2_735fc"]
+
+[node name="Character" type="Node2D" unique_id=1983911029]
+script = ExtResource("1_1fa4y")
+
+[node name="HealthComponent" parent="." unique_id=329209331 instance=ExtResource("2_735fc")]
+
+[connection signal="died" from="HealthComponent" to="." method="_on_died"]

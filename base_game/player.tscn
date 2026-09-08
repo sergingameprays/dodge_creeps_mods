@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://dx2pt0cqgty50"]
 
 [ext_resource type="Texture2D" uid="uid://cny5lsgtc2b23" path="res://art/playerGrey_up1.png" id="1_hqtel"]
-[ext_resource type="Script" uid="uid://bcn52rfky3qee" path="res://player.gd" id="1_sweqy"]
+[ext_resource type="Script" uid="uid://bcn52rfky3qee" path="res://base_game/player.gd" id="1_sweqy"]
 [ext_resource type="Texture2D" uid="uid://dwedlfrp5eqfo" path="res://art/playerGrey_up2.png" id="2_sweqy"]
 [ext_resource type="Texture2D" uid="uid://cllnsoi33i3x2" path="res://art/playerGrey_walk1.png" id="3_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://c0oxb2bfrdl7b" path="res://art/playerGrey_walk2.png" id="4_1jxqw"]
+[ext_resource type="PackedScene" uid="uid://dv68jr8asddft" path="res://lib/character.tscn" id="6_ab0a1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
 animations = [{
@@ -47,4 +48,7 @@ animation = &"up"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1587941040]
 shape = SubResource("CapsuleShape2D_b26j0")
 
+[node name="Character" parent="." unique_id=1983911029 instance=ExtResource("6_ab0a1")]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="died" from="Character" to="." method="_on_character_died"]
