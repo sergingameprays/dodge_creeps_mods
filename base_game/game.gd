@@ -22,6 +22,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
+	$HUD._update_kill_score(- $HUD.kill_score) ## added
 	$HUD.show_message("Get Ready")
 	
 func _on_mob_timer_timeout() -> void:
