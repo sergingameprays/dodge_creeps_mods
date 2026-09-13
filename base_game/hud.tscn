@@ -7,11 +7,12 @@
 script = ExtResource("1_64ctp")
 
 [node name="ScoreLabel" type="Label" parent="." unique_id=1668388375]
+modulate = Color(0.3164047, 0.91878873, 0, 1)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -425.0
-offset_right = 425.0
+offset_left = -540.0
+offset_right = 420.0
 offset_bottom = 78.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_37p78")
@@ -58,6 +59,21 @@ text = "Start"
 [node name="MessageTimer" type="Timer" parent="." unique_id=1575797288]
 wait_time = 2.0
 one_shot = true
+
+[node name="KillScoreLabel" type="Label" parent="." unique_id=2002578294]
+modulate = Color(1, 0.105882354, 0, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_right = 612.0
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

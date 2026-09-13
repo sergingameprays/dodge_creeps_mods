@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dj02bo1mm0a08"]
+
+[ext_resource type="Script" uid="uid://3yd7qddf27jw" path="res://lib/gun.gd" id="1_gjuty"]
+[ext_resource type="PackedScene" uid="uid://db54oqyyust13" path="res://lib/bullet.tscn" id="2_lnotd"]
+
+[node name="Gun" type="Node2D" unique_id=1551378296]
+script = ExtResource("1_gjuty")
+bullet_scene = ExtResource("2_lnotd")
+
+[node name="Muzzle (marker2D)" type="Marker2D" parent="." unique_id=297952661]

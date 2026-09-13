@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://24yy1wdwvsob" path="res://art/enemySwimming_2.png" id="4_ieysi"]
 [ext_resource type="Texture2D" uid="uid://cec3jqefvrppb" path="res://art/enemyWalking_1.png" id="5_cixyi"]
 [ext_resource type="Texture2D" uid="uid://dslfut55a5pq2" path="res://art/enemyWalking_2.png" id="6_7ulmv"]
+[ext_resource type="PackedScene" uid="uid://dv68jr8asddft" path="res://lib/character.tscn" id="8_ij4lo"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pcqmr"]
 animations = [{
@@ -64,3 +65,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_jbnni")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1374096282 groups=["mobs"]]
+
+[node name="Character" parent="." unique_id=1983911029 instance=ExtResource("8_ij4lo")]
+
+[connection signal="died" from="Character" to="." method="_on_character_died"]

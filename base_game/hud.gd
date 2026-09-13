@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal start_game
+var kill_score: int = 0 #added
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,6 +26,11 @@ func show_game_over():
 	await get_tree().create_timer(1.0).timeout
 	
 	$StartButton.show()
+
+# added
+func _update_kill_score(amount:int) -> void:
+	kill_score += amount
+	$KillScoreLabel.text = str(kill_score)
 
 func update_score(score):
 	$ScoreLabel.text = str(score)

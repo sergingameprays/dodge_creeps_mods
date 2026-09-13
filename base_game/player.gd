@@ -6,10 +6,12 @@ signal hit
 var screen_size
 
 @onready var character: Character ##added
+@onready var gun: Gun = $Gun
 
 func _ready() -> void:
 	character = $Character ##added
 	screen_size = get_viewport_rect().size
+	character.hide() # to not fire without started the game
 	hide()
 
 func _process(delta: float) -> void:
@@ -39,20 +41,26 @@ func _process(delta: float) -> void:
 	elif velocity.y != 0:
 		$AnimatedSprite2D.animation = "up"
 		$AnimatedSprite2D.flip_v = velocity.y > 0
+		
+	gun.look_at(get_global_mouse_position())
+	if Input.is_action_just_pressed("shoot") and character.visible:
+		gun.fire()
 
 func _on_body_entered(body: Node2D) -> void:
 	character = $Character #added
-	character.take_damage(10) ## added
+	character.take_damage(body.damage) ## added
 
 	
 func start(pos):
 	character.reset() ## added
 	position = pos
+	character.show() ##added to dont fire without started
 	show()
 	$CollisionShape2D.disabled = false
 
 ##added, the body was originally in _on_body_entered(body: Node2D)
 func _on_character_died() -> void:
+	character.hide() # to not fire without started the game
 	hide()
 	hit.emit()
 	$CollisionShape2D.set_deferred("disabled", true)

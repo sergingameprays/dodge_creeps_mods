@@ -38,6 +38,7 @@ func _on_mob_timer_timeout() -> void:
 	var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
 	mob.linear_velocity = velocity.rotated(direction)
 	add_child(mob)
+	mob.points_conquered.connect($HUD._update_kill_score) ##added
 	
 func _on_score_timer_timeout() -> void:
 	score += 1

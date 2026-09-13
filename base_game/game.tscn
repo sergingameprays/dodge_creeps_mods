@@ -7,9 +7,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_80nbo"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 481, 0, 0, 0, 0, 0, 481, 719, 0, 0, 0, 0, 1, 719, 0, 0, 0, 0, 1, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1076, 4, 0, 0, 0, 0, 1078, 341, 0, 0, 0, 0, 1071, 712, 0, 0, 0, 0, 1, 719, 0, 0, 0, 0, 1, 0)
 }
-point_count = 5
+point_count = 6
 
 [node name="Main" type="Node" unique_id=913520818]
 script = ExtResource("1_j5jpo")
@@ -27,13 +27,14 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="." unique_id=281672279]
-position = Vector2(240, 450)
+position = Vector2(534, 480)
 
 [node name="MobPath" type="Path2D" parent="." unique_id=1504112958]
 curve = SubResource("Curve2D_80nbo")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=196331783]
 position = Vector2(1, 0)
+rotation = 0.003720913
 
 [node name="HUD" parent="." unique_id=341309747 instance=ExtResource("4_ap70w")]
 

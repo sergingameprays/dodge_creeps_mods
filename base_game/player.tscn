@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cllnsoi33i3x2" path="res://art/playerGrey_walk1.png" id="3_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://c0oxb2bfrdl7b" path="res://art/playerGrey_walk2.png" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://dv68jr8asddft" path="res://lib/character.tscn" id="6_ab0a1"]
+[ext_resource type="PackedScene" uid="uid://dj02bo1mm0a08" path="res://lib/gun.tscn" id="7_cndew"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
 animations = [{
@@ -49,6 +50,9 @@ animation = &"up"
 shape = SubResource("CapsuleShape2D_b26j0")
 
 [node name="Character" parent="." unique_id=1983911029 instance=ExtResource("6_ab0a1")]
+
+[node name="Gun" parent="." unique_id=1551378296 instance=ExtResource("7_cndew")]
+bullet_damage = 20.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="died" from="Character" to="." method="_on_character_died"]
