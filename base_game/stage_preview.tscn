@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dtflbi8c1mqp0"]
+
+[ext_resource type="Script" uid="uid://ddnxv5ebvlr7f" path="res://base_game/stage_preview.gd" id="1_preview"]
+
+[node name="StagePreview" type="SubViewportContainer" unique_id=917035208]
+mouse_filter = 2
+script = ExtResource("1_preview")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=504417902]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(266, 119)
+render_target_update_mode = 4
+
+[node name="PreviewWorld" type="Node2D" parent="SubViewport" unique_id=1585798778]
