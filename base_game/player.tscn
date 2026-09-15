@@ -1,58 +1,47 @@
 [gd_scene format=3 uid="uid://dx2pt0cqgty50"]
 
-[ext_resource type="Texture2D" uid="uid://cny5lsgtc2b23" path="res://art/playerGrey_up1.png" id="1_hqtel"]
+[ext_resource type="Texture2D" uid="uid://dj5o3uxub5emc" path="res://art/player.png" id="1_player"]
 [ext_resource type="Script" uid="uid://bcn52rfky3qee" path="res://base_game/player.gd" id="1_sweqy"]
-[ext_resource type="Texture2D" uid="uid://dwedlfrp5eqfo" path="res://art/playerGrey_up2.png" id="2_sweqy"]
-[ext_resource type="Texture2D" uid="uid://cllnsoi33i3x2" path="res://art/playerGrey_walk1.png" id="3_2hs0m"]
-[ext_resource type="Texture2D" uid="uid://c0oxb2bfrdl7b" path="res://art/playerGrey_walk2.png" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://dv68jr8asddft" path="res://lib/character.tscn" id="6_ab0a1"]
 [ext_resource type="PackedScene" uid="uid://dj02bo1mm0a08" path="res://lib/gun.tscn" id="7_cndew"]
+[ext_resource type="Texture2D" uid="uid://8ui8tdada1oj" path="res://art/hud/alt_gun.png" id="8_altgun"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_hqtel")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_sweqy")
-}],
-"loop": true,
-"name": &"up",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_2hs0m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_1jxqw")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
+radius = 18.0
+height = 52.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b26j0"]
-radius = 27.0
-height = 70.0
-
-[node name="Player" type="Area2D" unique_id=2015272413]
+[node name="Player" type="CharacterBody2D" unique_id=2015272413]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_sweqy")
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=615273226]
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_dw050")
-animation = &"up"
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1970971922]
+texture_filter = 1
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("1_player")
+
+[node name="AltGun" type="Sprite2D" parent="." unique_id=788076166]
+z_index = 2
+texture_filter = 1
+position = Vector2(-7, 23)
+scale = Vector2(1.1691735, 4.018626)
+texture = ExtResource("8_altgun")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1587941040]
-shape = SubResource("CapsuleShape2D_b26j0")
+shape = SubResource("CapsuleShape2D_player")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2030512130]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1674403021]
+shape = SubResource("CapsuleShape2D_player")
 
 [node name="Character" parent="." unique_id=1983911029 instance=ExtResource("6_ab0a1")]
 
 [node name="Gun" parent="." unique_id=1551378296 instance=ExtResource("7_cndew")]
 bullet_damage = 20.0
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="died" from="Character" to="." method="_on_character_died"]

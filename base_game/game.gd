@@ -1,50 +1,80 @@
 extends Node
 
+const EnemyCatalog = preload("res://base_game/enemies/enemy_catalog.gd")
+
+@export_group("Inimigos")
 @export var mob_scene: PackedScene
-var score
 
-# Called when the node enters the scene tree for the first time.
+@onready var player: PlayerController = $Player
+@onready var hud: GameHUD = $HUD
+@onready var mob_timer: Timer = $MobTimer
+@onready var score_timer: Timer = $ScoreTimer
+@onready var start_timer: Timer = $StartTimer
+@onready var start_position: Marker2D = $StartPosition
+@onready var spawn_location: PathFollow2D = $MobPath/MobSpawnLocation
+
+var elapsed_seconds: int = 0
+
 func _ready() -> void:
-	pass
+	$HUD/StartButton.hide()
+	player.weapon_changed.connect(hud.set_weapon)
+	player.dash_ready_changed.connect(hud.set_dash_ready)
+	player.potion_available_changed.connect(hud.set_potion_available)
+	new_game()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func new_game() -> void:
+	_clear_enemies()
+	elapsed_seconds = 0
+	score_timer.stop()
+	mob_timer.stop()
+	hud.reset_run()
+	player.start(start_position.position)
+	start_timer.start()
+	hud.show_message("Prepare-se!")
 
 func game_over() -> void:
-	$ScoreTimer.stop()
-	$MobTimer.stop()
-	$HUD.show_game_over()
-	
-func new_game():
+	score_timer.stop()
+	mob_timer.stop()
+	hud.show_game_over()
+
+func _clear_enemies() -> void:
 	get_tree().call_group("mobs", "queue_free")
-	score = 0
-	$Player.start($StartPosition.position)
-	$StartTimer.start()
-	$HUD.update_score(score)
-	$HUD._update_kill_score(- $HUD.kill_score) ## added
-	$HUD.show_message("Get Ready")
-	
+
+func _spawn_enemy() -> void:
+	var enemy_scene := _pick_enemy_scene()
+	if enemy_scene == null:
+		push_warning("Nenhuma cena de inimigo foi configurada.")
+		return
+
+	var enemy := enemy_scene.instantiate() as Enemy
+	if enemy == null:
+		push_warning("A cena escolhida não usa o script de inimigo esperado.")
+		return
+
+	spawn_location.progress_ratio = randf()
+	var direction := spawn_location.global_rotation + PI / 2.0
+	direction += randf_range(-PI / 4.0, PI / 4.0)
+
+	enemy.global_position = spawn_location.global_position
+	enemy.rotation = direction
+	enemy.linear_velocity = Vector2.RIGHT.rotated(direction) * enemy.get_spawn_speed()
+	add_child(enemy)
+	enemy.points_conquered.connect(hud.add_score)
+
+func _pick_enemy_scene() -> PackedScene:
+	var available_scenes: Array[PackedScene] = []
+	if mob_scene != null:
+		available_scenes.append(mob_scene)
+	available_scenes.append_array(EnemyCatalog.EXTRA_ENEMY_SCENES)
+	return null if available_scenes.is_empty() else available_scenes.pick_random() as PackedScene
+
 func _on_mob_timer_timeout() -> void:
-	var mob = mob_scene.instantiate()
-	var mob_spawn_location = $MobPath/MobSpawnLocation
-	mob_spawn_location.progress_ratio = randf()
-	
-	mob.position = mob_spawn_location.position
-	
-	var direction = mob_spawn_location.rotation + PI/2
-	direction += randf_range(-PI/4, PI/4)
-	mob.rotation = direction
-	
-	var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
-	mob.linear_velocity = velocity.rotated(direction)
-	add_child(mob)
-	mob.points_conquered.connect($HUD._update_kill_score) ##added
-	
+	_spawn_enemy()
+
 func _on_score_timer_timeout() -> void:
-	score += 1
-	$HUD.update_score(score)
-	
+	elapsed_seconds += 1
+	hud.update_time(elapsed_seconds)
+
 func _on_start_timer_timeout() -> void:
-	$MobTimer.start()
-	$ScoreTimer.start()
+	mob_timer.start()
+	score_timer.start()

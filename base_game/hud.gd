@@ -1,43 +1,57 @@
 extends CanvasLayer
+class_name GameHUD
 
 signal start_game
-var kill_score: int = 0 #added
 
-# Called when the node enters the scene tree for the first time.
+const PRIMARY_WEAPON_ICON := preload("res://art/hud/gun_primary.png")
+const ALT_WEAPON_ICON := preload("res://art/hud/gun_alt.png")
+const DISABLED_ITEM_COLOR := Color(0.35, 0.35, 0.35, 0.5)
+
+var kill_score: int = 0
+
 func _ready() -> void:
-	pass # Replace with function body.
+	reset_run()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func reset_run() -> void:
+	kill_score = 0
+	%ScoreValue.text = "000"
+	%TimeValue.text = "000"
+	set_weapon(0)
+	set_dash_ready(true)
+	set_potion_available(true)
 
-func show_message(text):
+func add_score(amount: int) -> void:
+	kill_score = maxi(kill_score + amount, 0)
+	%ScoreValue.text = "%03d" % mini(kill_score, 999)
+
+func update_time(seconds: int) -> void:
+	%TimeValue.text = "%03d" % mini(seconds, 999)
+
+func set_weapon(index: int) -> void:
+	%WeaponIcon.texture = PRIMARY_WEAPON_ICON if index == 0 else ALT_WEAPON_ICON
+
+func set_dash_ready(is_ready: bool) -> void:
+	%DashIcon.modulate = Color.WHITE if is_ready else DISABLED_ITEM_COLOR
+
+func set_potion_available(is_available: bool) -> void:
+	%PotionIcon.modulate = Color.WHITE if is_available else DISABLED_ITEM_COLOR
+
+func show_message(text: String) -> void:
 	$Message.text = text
 	$Message.show()
 	$MessageTimer.start()
-	
-func show_game_over():
-	show_message("Game Over")
+
+func show_game_over() -> void:
+	show_message("Fim de Jogo")
 	await $MessageTimer.timeout
-	
-	$Message.text = "Dodge the Creeps!"
+	$Message.text = "Destrua as Naves!"
 	$Message.show()
-	
 	await get_tree().create_timer(1.0).timeout
-	
 	$StartButton.show()
 
-# added
-func _update_kill_score(amount:int) -> void:
-	kill_score += amount
-	$KillScoreLabel.text = str(kill_score)
-
-func update_score(score):
-	$ScoreLabel.text = str(score)
-	
-func _on_start_button_pressed():
+func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	start_game.emit()
-	
-func _on_message_timer_timeout():
+
+func _on_message_timer_timeout() -> void:
 	$Message.hide()

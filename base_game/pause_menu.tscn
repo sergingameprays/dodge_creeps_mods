@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://b3mtb28ekjwnh"]
+
+[ext_resource type="Script" uid="uid://crd6q0hu25a12" path="res://base_game/pause_menu.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://di5grus427whe" path="res://fonts/Xolonium-Regular.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
+bg_color = Color(0.290196, 0.0470588, 0.309804, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.389094, 0.82825, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_normal"]
+bg_color = Color(0.180392, 0.027451, 0.2, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.768627, 0.25098, 0.631373, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_pressed"]
+bg_color = Color(0.541176, 0.0784314, 0.470588, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.639216, 0.901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_hover"]
+bg_color = Color(0.4, 0.0588235, 0.356863, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.389094, 0.82825, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_focus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.74902, 0.917647, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="PauseMenu" type="Control" unique_id=1409404236]
+process_mode = 3
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="." unique_id=1589279889]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0156863, 0.00392157, 0.027451, 0.72)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1798344691]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -250.0
+offset_right = 230.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="PanelVBox" type="VBoxContainer" parent="Panel" unique_id=2068025506]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Accent" type="ColorRect" parent="Panel/PanelVBox" unique_id=1188839566]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 0.389094, 0.82825, 1)
+
+[node name="Margin" type="MarginContainer" parent="Panel/PanelVBox" unique_id=245260426]
+layout_mode = 2
+theme_override_constants/margin_left = 42
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 42
+theme_override_constants/margin_bottom = 34
+
+[node name="Content" type="VBoxContainer" parent="Panel/PanelVBox/Margin" unique_id=1796652103]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Panel/PanelVBox/Margin/Content" unique_id=987867825]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 38
+text = "JOGO PAUSADO"
+horizontal_alignment = 1
+
+[node name="MenuButtons" type="VBoxContainer" parent="Panel/PanelVBox/Margin/Content" unique_id=1744425554]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="ResumeButton" type="Button" parent="Panel/PanelVBox/Margin/Content/MenuButtons" unique_id=1069541845]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBox_button_normal")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/focus = SubResource("StyleBox_button_focus")
+text = "VOLTAR AO JOGO"
+
+[node name="StageSelectButton" type="Button" parent="Panel/PanelVBox/Margin/Content/MenuButtons" unique_id=687793698]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBox_button_normal")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/focus = SubResource("StyleBox_button_focus")
+text = "SELECIONAR FASE"
+
+[node name="SettingsButton" type="Button" parent="Panel/PanelVBox/Margin/Content/MenuButtons" unique_id=1671666667]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBox_button_normal")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/focus = SubResource("StyleBox_button_focus")
+text = "CONFIGURAÇÕES"
+
+[node name="MainMenuButton" type="Button" parent="Panel/PanelVBox/Margin/Content/MenuButtons" unique_id=1332308444]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBox_button_normal")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/focus = SubResource("StyleBox_button_focus")
+text = "VOLTAR AO MENU"
+
+[connection signal="pressed" from="Panel/PanelVBox/Margin/Content/MenuButtons/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/PanelVBox/Margin/Content/MenuButtons/StageSelectButton" to="." method="_on_stage_select_pressed"]
+[connection signal="pressed" from="Panel/PanelVBox/Margin/Content/MenuButtons/SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Panel/PanelVBox/Margin/Content/MenuButtons/MainMenuButton" to="." method="_on_main_menu_pressed"]
