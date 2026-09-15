@@ -1,0 +1,361 @@
+[gd_scene format=3 uid="uid://cj1jhrfioh08q"]
+
+[ext_resource type="Script" uid="uid://c5yd4um8hfgbw" path="res://base_game/stage_select.gd" id="1_select"]
+[ext_resource type="Texture2D" uid="uid://cfftlkkqq74kg" path="res://art/menu/parallax-space-backgound.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://ccd2kpslsbf51" path="res://art/menu/parallax-space-stars.png" id="3_stars"]
+[ext_resource type="Texture2D" uid="uid://b4sknf7fyr7qa" path="res://art/menu/parallax-space-far-planets.png" id="4_far"]
+[ext_resource type="Texture2D" uid="uid://dvvg7tvpb4232" path="res://art/menu/parallax-space-big-planet.png" id="5_big"]
+[ext_resource type="Texture2D" uid="uid://bj4akqmpfrpn5" path="res://art/menu/parallax-space-ring-planet.png" id="6_ring"]
+[ext_resource type="FontFile" uid="uid://di5grus427whe" path="res://fonts/Xolonium-Regular.ttf" id="7_font"]
+[ext_resource type="PackedScene" uid="uid://dtflbi8c1mqp0" path="res://base_game/stage_preview.tscn" id="8_preview"]
+
+[sub_resource type="StyleBoxFlat" id="StageNormal"]
+bg_color = Color(0.035, 0.025, 0.075, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.42, 0.22, 0.52, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StagePressed"]
+bg_color = Color(0.23, 0.055, 0.23, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.58, 0.87, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StageHover"]
+bg_color = Color(0.12, 0.045, 0.16, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.95, 0.35, 0.78, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StageFocus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.95, 0.58, 1, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StageDisabled"]
+bg_color = Color(0.01, 0.01, 0.018, 0.86)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.25, 0.32, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="StageSelect" type="Node2D" unique_id=1160458768]
+script = ExtResource("1_select")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1325158672]
+z_index = -50
+texture_filter = 1
+position = Vector2(540, 360)
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("2_bg")
+
+[node name="Stars" type="Sprite2D" parent="." unique_id=2033860784]
+z_index = -40
+texture_filter = 1
+position = Vector2(540, 360)
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("3_stars")
+
+[node name="FarPlanets" type="Sprite2D" parent="." unique_id=538165396]
+z_index = -30
+texture_filter = 1
+position = Vector2(540, 360)
+scale = Vector2(4.6, 4.6)
+texture = ExtResource("4_far")
+
+[node name="BigPlanet" type="Sprite2D" parent="." unique_id=953366995]
+z_index = -20
+texture_filter = 1
+position = Vector2(884, 515)
+scale = Vector2(4.25, 4.25)
+texture = ExtResource("5_big")
+
+[node name="RingPlanet" type="Sprite2D" parent="." unique_id=243384634]
+z_index = -15
+texture_filter = 1
+position = Vector2(902, 206)
+scale = Vector2(3.1, 3.1)
+texture = ExtResource("6_ring")
+
+[node name="Shade" type="ColorRect" parent="." unique_id=382636964]
+z_index = -5
+offset_right = 1080.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.012, 0.006, 0.03, 0.38)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=317997920]
+
+[node name="Title" type="Label" parent="UI" unique_id=694888487]
+offset_left = 83.0
+offset_top = 105.0
+offset_right = 815.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.97, 0.94, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.1, 0.01, 0.13, 0.95)
+theme_override_colors/font_outline_color = Color(0.58, 0.12, 0.48, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 44
+text = "SELECIONE A FASE"
+
+[node name="TitleLine" type="ColorRect" parent="UI" unique_id=1838038324]
+offset_left = 82.0
+offset_top = 164.0
+offset_right = 998.0
+offset_bottom = 168.0
+mouse_filter = 2
+color = Color(0.95, 0.25, 0.72, 0.85)
+
+[node name="StageGrid" type="GridContainer" parent="UI" unique_id=1372192763]
+offset_left = 82.0
+offset_top = 198.0
+offset_right = 998.0
+offset_bottom = 606.0
+theme_override_constants/h_separation = 22
+theme_override_constants/v_separation = 22
+columns = 3
+
+[node name="Stage1" type="Button" parent="UI/StageGrid" unique_id=512182859]
+custom_minimum_size = Vector2(290, 188)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StageNormal")
+theme_override_styles/pressed = SubResource("StagePressed")
+theme_override_styles/hover = SubResource("StageHover")
+theme_override_styles/focus = SubResource("StageFocus")
+
+[node name="Preview" parent="UI/StageGrid/Stage1" unique_id=33626710 instance=ExtResource("8_preview")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 278.0
+offset_bottom = 131.0
+stage_path = "res://base_game/stages/stage_1.tscn"
+
+[node name="Name" type="Label" parent="UI/StageGrid/Stage1" unique_id=1672621620]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 142.0
+offset_right = 275.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.96, 0.93, 1, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 20
+text = "FASE 1"
+horizontal_alignment = 1
+
+[node name="Stage2" type="Button" parent="UI/StageGrid" unique_id=1934822226]
+custom_minimum_size = Vector2(290, 188)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StageNormal")
+theme_override_styles/pressed = SubResource("StagePressed")
+theme_override_styles/hover = SubResource("StageHover")
+theme_override_styles/focus = SubResource("StageFocus")
+
+[node name="Preview" parent="UI/StageGrid/Stage2" unique_id=553749418 instance=ExtResource("8_preview")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 278.0
+offset_bottom = 131.0
+stage_path = "res://base_game/stages/stage_2.tscn"
+
+[node name="Name" type="Label" parent="UI/StageGrid/Stage2" unique_id=329045454]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 142.0
+offset_right = 275.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.96, 0.93, 1, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 20
+text = "FASE 2"
+horizontal_alignment = 1
+
+[node name="Stage3" type="Button" parent="UI/StageGrid" unique_id=97694148]
+custom_minimum_size = Vector2(290, 188)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StageNormal")
+theme_override_styles/pressed = SubResource("StagePressed")
+theme_override_styles/hover = SubResource("StageHover")
+theme_override_styles/focus = SubResource("StageFocus")
+
+[node name="Preview" parent="UI/StageGrid/Stage3" unique_id=734502821 instance=ExtResource("8_preview")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 278.0
+offset_bottom = 131.0
+stage_path = "res://base_game/stages/stage_3.tscn"
+
+[node name="Name" type="Label" parent="UI/StageGrid/Stage3" unique_id=749378099]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 142.0
+offset_right = 275.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.96, 0.93, 1, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 20
+text = "FASE 3"
+horizontal_alignment = 1
+
+[node name="Stage4" type="Button" parent="UI/StageGrid" unique_id=1485336808]
+custom_minimum_size = Vector2(290, 188)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StageNormal")
+theme_override_styles/pressed = SubResource("StagePressed")
+theme_override_styles/hover = SubResource("StageHover")
+theme_override_styles/focus = SubResource("StageFocus")
+
+[node name="Preview" parent="UI/StageGrid/Stage4" unique_id=617684267 instance=ExtResource("8_preview")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 278.0
+offset_bottom = 131.0
+stage_path = "res://base_game/stages/stage_4.tscn"
+
+[node name="Name" type="Label" parent="UI/StageGrid/Stage4" unique_id=900484430]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 142.0
+offset_right = 275.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.96, 0.93, 1, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 20
+text = "FASE 4"
+horizontal_alignment = 1
+
+[node name="Stage5" type="Button" parent="UI/StageGrid" unique_id=629757602]
+custom_minimum_size = Vector2(290, 188)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StageNormal")
+theme_override_styles/pressed = SubResource("StagePressed")
+theme_override_styles/hover = SubResource("StageHover")
+theme_override_styles/focus = SubResource("StageFocus")
+
+[node name="Preview" parent="UI/StageGrid/Stage5" unique_id=1973730705 instance=ExtResource("8_preview")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 278.0
+offset_bottom = 131.0
+stage_path = "res://base_game/stages/stage_5.tscn"
+
+[node name="Name" type="Label" parent="UI/StageGrid/Stage5" unique_id=1955017920]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 142.0
+offset_right = 275.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.96, 0.93, 1, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 20
+text = "FASE 5"
+horizontal_alignment = 1
+
+[node name="Stage6" type="Button" parent="UI/StageGrid" unique_id=265613247]
+custom_minimum_size = Vector2(290, 188)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/disabled = SubResource("StageDisabled")
+disabled = true
+
+[node name="BlackPreview" type="ColorRect" parent="UI/StageGrid/Stage6" unique_id=1815710598]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 278.0
+offset_bottom = 131.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="Question" type="Label" parent="UI/StageGrid/Stage6" unique_id=1251300768]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 17.0
+offset_right = 278.0
+offset_bottom = 125.0
+theme_override_colors/font_color = Color(0.82, 0.8, 0.86, 0.92)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 74
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="UI/StageGrid/Stage6" unique_id=1216647638]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 139.0
+offset_right = 275.0
+offset_bottom = 160.0
+theme_override_colors/font_color = Color(0.62, 0.59, 0.66, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 18
+text = "FASE 6"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="UI" unique_id=1484658178]
+offset_left = 82.0
+offset_top = 638.0
+offset_right = 260.0
+offset_bottom = 688.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.92, 0.89, 0.97, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StageNormal")
+theme_override_styles/pressed = SubResource("StagePressed")
+theme_override_styles/hover = SubResource("StageHover")
+theme_override_styles/focus = SubResource("StageFocus")
+text = "VOLTAR"
+
+[connection signal="pressed" from="UI/StageGrid/Stage1" to="." method="_on_stage_1_pressed"]
+[connection signal="pressed" from="UI/StageGrid/Stage2" to="." method="_on_stage_2_pressed"]
+[connection signal="pressed" from="UI/StageGrid/Stage3" to="." method="_on_stage_3_pressed"]
+[connection signal="pressed" from="UI/StageGrid/Stage4" to="." method="_on_stage_4_pressed"]
+[connection signal="pressed" from="UI/StageGrid/Stage5" to="." method="_on_stage_5_pressed"]
+[connection signal="pressed" from="UI/Back" to="." method="_on_back_pressed"]
+
+[connection signal="pressed" from="UI/StageGrid/Stage6" to="." method="_on_stage_6_pressed"]
