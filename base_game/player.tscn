@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dj5o3uxub5emc" path="res://art/player.png" id="1_player"]
 [ext_resource type="Script" uid="uid://bcn52rfky3qee" path="res://base_game/player.gd" id="1_sweqy"]
+[ext_resource type="Script" uid="uid://ujulfyick1ib" path="res://base_game/utils.gd" id="6_6hrra"]
 [ext_resource type="PackedScene" uid="uid://dv68jr8asddft" path="res://lib/character.tscn" id="6_ab0a1"]
 [ext_resource type="PackedScene" uid="uid://dj02bo1mm0a08" path="res://lib/gun.tscn" id="7_cndew"]
 [ext_resource type="Texture2D" uid="uid://8ui8tdada1oj" path="res://art/hud/alt_gun.png" id="8_altgun"]
@@ -42,6 +43,10 @@ shape = SubResource("CapsuleShape2D_player")
 
 [node name="Gun" parent="." unique_id=1551378296 instance=ExtResource("7_cndew")]
 bullet_damage = 20.0
+
+[node name="Utils" type="Node" parent="." unique_id=1692908172 node_paths=PackedStringArray("player")]
+script = ExtResource("6_6hrra")
+player = NodePath("..")
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="died" from="Character" to="." method="_on_character_died"]

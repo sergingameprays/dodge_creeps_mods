@@ -35,6 +35,7 @@ const ALTERNATE_WEAPON := 1
 @onready var alt_gun_sprite: Sprite2D = $AltGun
 @onready var body_collision: CollisionShape2D = $CollisionShape2D
 @onready var hurtbox_collision: CollisionShape2D = $Hurtbox/CollisionShape2D
+@onready var utils: Node = $Utils
 
 var current_weapon: int = PRIMARY_WEAPON
 var potion_available: bool = true
@@ -46,7 +47,7 @@ var _dash_ready: bool = true
 
 func _ready() -> void:
 	_set_active(false)
-	_apply_weapon(PRIMARY_WEAPON, false)
+	utils.apply_weapon(PRIMARY_WEAPON, false)
 
 func _physics_process(delta: float) -> void:
 	_update_dash_cooldown(delta)
@@ -64,11 +65,11 @@ func _handle_actions(move_direction: Vector2, aim_direction: Vector2) -> void:
 		return
 
 	if Input.is_action_just_pressed("dash"):
-		_try_dash(move_direction, aim_direction)
+		utils.try_dash(move_direction, aim_direction)
 	if Input.is_action_just_pressed("switch_weapon"):
-		_switch_weapon()
+		utils.switch_weapon()
 	if Input.is_action_just_pressed("use_potion"):
-		_use_potion()
+		utils.use_potion()
 	if Input.is_action_just_pressed("shoot"):
 		gun.fire()
 
@@ -88,20 +89,6 @@ func _update_aim(mouse_position: Vector2, aim_direction: Vector2) -> void:
 	rotation = aim_direction.angle() - PI / 2.0
 	gun.look_at(mouse_position)
 
-func _try_dash(move_direction: Vector2, aim_direction: Vector2) -> void:
-	if _dash_cooldown_left > 0.0:
-		return
-
-	_dash_direction = move_direction.normalized()
-	if _dash_direction == Vector2.ZERO and aim_direction.length_squared() > 0.001:
-		_dash_direction = aim_direction.normalized()
-	if _dash_direction == Vector2.ZERO:
-		return
-
-	_dash_time_left = dash_duration
-	_dash_cooldown_left = dash_cooldown
-	_dash_ready = false
-	dash_ready_changed.emit(false)
 
 func _update_dash_cooldown(delta: float) -> void:
 	if _dash_cooldown_left <= 0.0:
@@ -111,30 +98,6 @@ func _update_dash_cooldown(delta: float) -> void:
 	if _dash_cooldown_left <= 0.0 and not _dash_ready:
 		_dash_ready = true
 		dash_ready_changed.emit(true)
-
-func _switch_weapon() -> void:
-	var next_weapon := ALTERNATE_WEAPON if current_weapon == PRIMARY_WEAPON else PRIMARY_WEAPON
-	_apply_weapon(next_weapon)
-
-func _apply_weapon(index: int, emit_signal: bool = true) -> void:
-	current_weapon = clampi(index, PRIMARY_WEAPON, ALTERNATE_WEAPON)
-	alt_gun_sprite.visible = current_weapon == ALTERNATE_WEAPON
-
-	if current_weapon == PRIMARY_WEAPON:
-		gun.configure(primary_fire_rate, primary_bullet_speed, primary_bullet_damage)
-	else:
-		gun.configure(alternate_fire_rate, alternate_bullet_speed, alternate_bullet_damage)
-
-	if emit_signal:
-		weapon_changed.emit(current_weapon)
-
-func _use_potion() -> void:
-	if not potion_available or character.is_full_health():
-		return
-
-	character.heal(potion_heal)
-	potion_available = false
-	potion_available_changed.emit(false)
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	var contact_damage = body.get("damage")
@@ -158,7 +121,7 @@ func _reset_items() -> void:
 	_dash_direction = Vector2.ZERO
 	_dash_ready = true
 	potion_available = true
-	_apply_weapon(PRIMARY_WEAPON, false)
+	utils.apply_weapon(PRIMARY_WEAPON, false)
 
 func _set_active(is_active: bool) -> void:
 	visible = is_active
